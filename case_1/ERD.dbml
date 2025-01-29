@@ -1,0 +1,48 @@
+Table company {
+  company_id integer [pk, not null, increment]
+  full_name varchar [not null]
+  short_name varchar [not null]
+  ogrn integer [not null, unique]
+  inn integer [not null, unique]
+  comment varchar
+}
+
+Table entrepreneur {
+  entrepreneur_id integer [pk, not null, increment]
+  first_name varchar [not null]
+  middle_name varchar
+  last_name varchar [not null]
+  place_of_birht varchar [not null]
+  date_of_birth date [not null]
+  ogrnip integer [not null, unique]
+  inn integer [not null, unique]
+  comment varchar
+}
+
+Table block_type {
+  block_type_id integer [pk, not null, increment]
+  type varchar [not null]
+  comment varchar
+}
+
+Table block_for_company {
+  block_for_company_id integer [pk, not null, increment]
+  company_id integer [ref: > company.company_id]
+  block_type_id integer [ref: > block_type.block_type_id]
+  date_start date [not null]
+  blocking_reason varchar [not null]
+  date_stop date [note: 'The block is over if not NULL']
+  unblocking_reason varchar
+  comment varchar
+}
+
+Table block_for_entrepreneur {
+  block_for_entrepreneur_id integer [pk, not null, increment]
+  entrepreneur_id integer [ref: > entrepreneur.entrepreneur_id]
+  block_type_id integer [ref: > block_type.block_type_id]
+  date_start date [not null]
+  blocking_reason varchar [not null]
+  date_stop date [note: 'The block is over if not NULL']
+  unblocking_reason varchar
+  comment varchar
+}
